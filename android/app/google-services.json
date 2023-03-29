@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "146281695430",
+    "project_id": "therapp-4f4a6",
+    "storage_bucket": "therapp-4f4a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146281695430:android:2e4fc300a9f24ce1ddefc7",
+        "android_client_info": {
+          "package_name": "com.example.therapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "146281695430-fb79p6bi2dp8hgjgh23q6666ej014c60.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5GzEqto3Vej1jnsk-oQn1g9MrkX_KefY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "146281695430-fb79p6bi2dp8hgjgh23q6666ej014c60.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
