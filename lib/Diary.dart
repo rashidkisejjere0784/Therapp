@@ -51,7 +51,7 @@ class _WidgetState extends State<Diary> {
   }
 
   final conf = OpenAIConfiguration(
-      apiKey: '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');
+      apiKey: 'API KEY');
 
   Future<void> generate(String message) async {
     String response = "";
