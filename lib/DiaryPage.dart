@@ -3,14 +3,13 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'Pallete.dart';
 import 'DiaryNoteBook.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'Note.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class DiaryPage extends StatefulWidget {
   const DiaryPage({Key? key}) : super(key: key);
+  @override
   _DiaryPageState createState() => _DiaryPageState();
 }
 
@@ -24,10 +23,10 @@ class _DiaryPageState extends State<DiaryPage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DiaryNoteBook()),
+              MaterialPageRoute(builder: (context) => const DiaryNoteBook()),
             );
           },
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
         body: SingleChildScrollView(
           child: Center(
@@ -43,12 +42,12 @@ class _DiaryPageState extends State<DiaryPage> {
                     style: GoogleFonts.montserrat(
                       fontWeight: FontWeight.bold,
                       fontSize: 24,
-                      color: Color(0xFF765FCF),
+                      color: const Color(0xFF765FCF),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection(user?.email.toString() ?? " ")
@@ -56,13 +55,14 @@ class _DiaryPageState extends State<DiaryPage> {
                       .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasError)
-                      return new Text('Error: ${snapshot.error}');
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    }
                     switch (snapshot.connectionState) {
                       case ConnectionState.waiting:
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       default:
-                        return new ListView(
+                        return ListView(
                           shrinkWrap: true,
                           children: snapshot.data!.docs
                               .map((DocumentSnapshot document) {
@@ -103,9 +103,9 @@ class _DiaryPageState extends State<DiaryPage> {
   }
 
   GestureDetector BuildNote(String content, IconData icon, Timestamp date) {
-    DateTime note_Date = date.toDate();
+    DateTime noteDate = date.toDate();
 
-    String noteDateStr = DateFormat('yyyy-MM-dd').format(note_Date);
+    String noteDateStr = DateFormat('yyyy-MM-dd').format(noteDate);
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -139,15 +139,15 @@ class _DiaryPageState extends State<DiaryPage> {
               icon,
               color: Pallete.dark_purple,
             ),
-            Spacer(),
+            const Spacer(),
             Text(
               noteDateStr,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Pallete.dark_purple,
               ),
             ),
-            Spacer(),
-            Icon(Icons.keyboard_arrow_right_sharp, color: Color(0xFF634EB1))
+            const Spacer(),
+            const Icon(Icons.keyboard_arrow_right_sharp, color: Color(0xFF634EB1))
           ],
         ),
       ),
