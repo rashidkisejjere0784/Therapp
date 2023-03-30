@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:therapp/Library.dart';
 import 'package:therapp/NotificationPage.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +8,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 
 class HomePage2 extends StatefulWidget {
-  HomePage2({Key? key}) : super(key: key);
+  const HomePage2({Key? key}) : super(key: key);
+  @override
   _WidgetState createState() => _WidgetState();
 }
 
 class _WidgetState extends State<HomePage2> {
+  // ignore: non_constant_identifier_names
   List<List<String>> All_Articles = [
     [
       "cdc.gov/mentalhealth/learn/index.htm",
@@ -121,7 +122,8 @@ class _WidgetState extends State<HomePage2> {
       'Reina Gattuso'
     ],
   ];
-  List<List<String>> _Article_list = [];
+  // ignore: non_constant_identifier_names
+  var _Article_list = <List<String>>[];
 
   List<String> bookMarked = [];
 
@@ -131,10 +133,10 @@ class _WidgetState extends State<HomePage2> {
     _Article_list = All_Articles;
     final user = FirebaseAuth.instance.currentUser;
     final userEmail = user?.email.toString();
-    final collection_name = "bookmarked " + (userEmail.toString() ?? " ");
+    final collectionName = "bookmarked " + (userEmail.toString());
 
     FirebaseFirestore.instance
-        .collection(collection_name)
+        .collection(collectionName)
         .get()
         .then((querySnapshot) {
       List<String> documentIds = [];
@@ -151,7 +153,6 @@ class _WidgetState extends State<HomePage2> {
 
   String _getGreeting() {
     var hour = DateTime.now().hour;
-    print(hour);
     if (hour < 12) {
       return 'Good Morning';
     } else if (hour < 17) {
@@ -162,12 +163,13 @@ class _WidgetState extends State<HomePage2> {
   }
 
   void addBookmark(String name, String id, String category, String link,
+      // ignore: non_constant_identifier_names
       String Author) async {
     final user = FirebaseAuth.instance.currentUser;
     final userEmail = user?.email.toString();
-    final collection_name = "bookmarked " + (userEmail.toString() ?? " ");
+    final collectionName = "bookmarked " + (userEmail.toString());
     final CollectionReference collection =
-        FirebaseFirestore.instance.collection(collection_name);
+        FirebaseFirestore.instance.collection(collectionName);
     await collection
         .doc(id)
         .set({
@@ -183,9 +185,9 @@ class _WidgetState extends State<HomePage2> {
   void removeBookmark(String id) async {
     final user = FirebaseAuth.instance.currentUser;
     final userEmail = user?.email.toString();
-    final collection_name = "bookmarked " + (userEmail.toString() ?? " ");
+    final collectionName = "bookmarked " + (userEmail.toString());
     FirebaseFirestore.instance
-        .collection(collection_name)
+        .collection(collectionName)
         .doc(id)
         .delete()
         .then((_) {
@@ -195,6 +197,7 @@ class _WidgetState extends State<HomePage2> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -306,7 +309,7 @@ class _WidgetState extends State<HomePage2> {
 
 //method used for article building
   Stack buildArticle(
-    String web_link,
+    String webLink,
     String name,
     String image,
     String id,
@@ -328,7 +331,7 @@ class _WidgetState extends State<HomePage2> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => Article(
-                      Web_link: web_link,
+                      Web_link: webLink,
                       Title: name,
                       Img_cat: image,
                       Author: authorName,
@@ -382,7 +385,7 @@ class _WidgetState extends State<HomePage2> {
               setState(() {
                 if (!bookMarked.contains(id)) {
                   bookMarked.add(id);
-                  addBookmark(name, id, image, web_link, authorName);
+                  addBookmark(name, id, image, webLink, authorName);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: const Text('Article Added To Library'),
