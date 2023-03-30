@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:therapp/Homepage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:therapp/signin.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'Homepage.dart';
-import 'firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
@@ -14,10 +9,13 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // ignore: prefer_const_constructors
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -27,8 +25,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       // Application name
-      title: 'Flutter Hello World',
+      title: 'Therapp',
       // debugShowCheckedModeBanner: false,
       // Application theme data, you can set the colors for the application as
       // you want
@@ -39,7 +38,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       // A widget which will be started on application startup
-      home: SignIn(),
+      home: const SignIn(),
     );
   }
 }
