@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:therapp/Pallete.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -370,7 +369,7 @@ class FeelingState extends State<DiaryNoteBook> {
                 },
                 child: const Text("Continue"),
                 style: ElevatedButton.styleFrom(
-                  primary: const Color(0xFF765FCF),
+                  backgroundColor: const Color(0xFF765FCF),
                 ),
               ),
             ),
@@ -440,7 +439,7 @@ class FeelingState extends State<DiaryNoteBook> {
             TextField(
               cursorColor: Pallete.dark_purple,
               controller: textController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Pallete.light_purple),
                 ),
@@ -472,7 +471,7 @@ class FeelingState extends State<DiaryNoteBook> {
                 },
                 child: const Text("POST!"),
                 style: ElevatedButton.styleFrom(
-                  primary: const Color(0xFF765FCF),
+                  backgroundColor: const Color(0xFF765FCF),
                 ),
               ),
             ),
