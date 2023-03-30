@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Library extends StatefulWidget {
   const Library({Key? key}) : super(key: key);
+  @override
   _LibraryState createState() => _LibraryState();
 }
 
@@ -16,7 +17,6 @@ class _LibraryState extends State<Library> {
   Widget build(BuildContext context) {
     final userEmail = user?.email.toString();
     final collection_name = "bookmarked " + (userEmail.toString() ?? " ");
-    print(collection_name);
     return Scaffold(
         backgroundColor: Pallete.background,
         appBar: AppBar(
@@ -52,11 +52,11 @@ class _LibraryState extends State<Library> {
 
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               default:
                 if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
                   //print(snapshot.data);
-                  return Text('No events found.');
+                  return const Text('No events found.');
                 }
 
                 return ListView(
@@ -73,7 +73,6 @@ class _LibraryState extends State<Library> {
 
   Column buildArticle(
       String web_link, String name, String image, String authorName) {
-    print("here");
     return Column(
       children: [
         Container(
