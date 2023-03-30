@@ -7,6 +7,8 @@ import 'package:therapp/User.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class Homepage extends StatefulWidget {
+  const Homepage({Key? key}) : super(key: key);
+
   @override
   _HomepageState createState() => _HomepageState();
 }
@@ -17,7 +19,7 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     //list of all of the articles with their links to e cscraped from the internet
 
-    List<Widget> _children = [HomePage2(), Diary(), Events(), User()];
+    List<Widget> _children = [const HomePage2(), const Diary(), const Events(), const User()];
     return Scaffold(
       backgroundColor: Pallete.background,
       body: _children[currentIndex],
