@@ -1,4 +1,6 @@
-import 'package:flutter/foundation.dart';
+
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:therapp/Pallete.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
@@ -7,11 +9,13 @@ import 'package:intl/intl.dart';
 import 'Event.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// ignore: must_be_immutable
 class PopItemBody extends StatefulWidget {
   String Category = "";
-  PopItemBody(String category) {
-    this.Category = category;
+  PopItemBody(String category, {Key? key}) : super(key: key) {
+    Category = category;
   }
+  @override
   _PopItemBodyState createState() => _PopItemBodyState();
 }
 
@@ -34,8 +38,8 @@ class _PopItemBodyState extends State<PopItemBody> {
           children: [
             Center(
                 child: Text(
-              "Create a new ${this.widget.Category} Support group",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              "Create a new ${widget.Category} Support group",
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             )),
             const Divider(
               color: Pallete.background,
@@ -60,21 +64,21 @@ class _PopItemBodyState extends State<PopItemBody> {
               child: ElevatedButton(
                 onPressed: () async {
                   Uri url = Uri.parse("https://meet.google.com");
-                  if (await canLaunchUrl(url))
+                  if (await canLaunchUrl(url)) {
                     await launchUrl(url, mode: LaunchMode.externalApplication);
-                  else
-                    // can't launch url, there is some error
+                  } else {
                     throw "Could not launch $url";
+                  }
                 },
-                style: ElevatedButton.styleFrom(primary: Pallete.dark_purple),
+                style: ElevatedButton.styleFrom(backgroundColor: Pallete.dark_purple),
                 child: const Text("Get Link"),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(1),
+              padding: const EdgeInsets.all(1),
               child: Text(
                 Event_date,
-                style: TextStyle(color: Pallete.text_color1, fontSize: 15),
+                style: const TextStyle(color: Pallete.text_color1, fontSize: 15),
               ),
             ),
             Padding(
@@ -96,7 +100,7 @@ class _PopItemBodyState extends State<PopItemBody> {
                     }
                   });
                 },
-                style: ElevatedButton.styleFrom(primary: Pallete.dark_purple),
+                style: ElevatedButton.styleFrom(backgroundColor: Pallete.dark_purple),
                 child: const Text("Select the date and time"),
               ),
             ),
@@ -106,7 +110,7 @@ class _PopItemBodyState extends State<PopItemBody> {
                 onPressed: () {
                   createGroup();
                 },
-                style: ElevatedButton.styleFrom(primary: Pallete.dark_purple),
+                style: ElevatedButton.styleFrom(backgroundColor: Pallete.dark_purple),
                 child: const Text("Create"),
               ),
             ),
@@ -123,17 +127,15 @@ class _PopItemBodyState extends State<PopItemBody> {
     String meetLink = GoogleMeetController.text.trim();
     if (!meetLink.startsWith("https://")) {
       meetLink = "https://" + meetLink;
-      print(meetLink);
     }
 
     //validate link
     if (!meetLink.contains("meet.google")) {
       meetLink = "https://Invalid" + meetLink;
-      print(meetLink);
     }
     final json = {
       'name': EventNameController.text.trim(),
-      'Category': this.widget.Category,
+      'Category': widget.Category,
       'Details': DescriptionController.text.trim(),
       'start time': start,
       'meet link': meetLink,
@@ -144,7 +146,7 @@ class _PopItemBodyState extends State<PopItemBody> {
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => Event(this.widget.Category)),
+      MaterialPageRoute(builder: (context) => Event(widget.Category)),
     );
   }
 
@@ -166,7 +168,7 @@ class _PopItemBodyState extends State<PopItemBody> {
                   borderRadius: BorderRadius.all(Radius.circular(35.0))),
               contentPadding: const EdgeInsets.all(10),
               hintText: hintText,
-              hintStyle: TextStyle(fontSize: 14, color: Pallete.text_color2))),
+              hintStyle: const TextStyle(fontSize: 14, color: Pallete.text_color2))),
     );
   }
 }
