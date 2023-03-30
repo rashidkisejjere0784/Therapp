@@ -1,4 +1,5 @@
 Therapp is a mobile application designed for promoting mental health awareness and assitance.
+
 How To Run the code 
 
 run git clone https://github.com/rashidkisejjere0784/Therapp.git
