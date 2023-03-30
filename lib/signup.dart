@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:therapp/Pallete.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
+  @override
   _SignUpState createState() => _SignUpState();
 }
 
@@ -96,7 +96,7 @@ class _SignUpState extends State<SignUp> {
                                 "Confirm your Password", true, false),
                             Text(
                               err,
-                              style: TextStyle(color: Colors.red),
+                              style: const TextStyle(color: Colors.red),
                             )
                           ],
                         )),
@@ -104,7 +104,7 @@ class _SignUpState extends State<SignUp> {
                         width: MediaQuery.of(context).size.width - 100,
                         child: ElevatedButton(
                           child: isLoading
-                              ? CircularProgressIndicator(
+                              ? const CircularProgressIndicator(
                                   color: Colors.white,
                                 )
                               : Text(
@@ -112,7 +112,7 @@ class _SignUpState extends State<SignUp> {
                                   style: GoogleFonts.montserrat(),
                                 ),
                           style: ElevatedButton.styleFrom(
-                            primary: Pallete.dark_purple,
+                            backgroundColor: Pallete.dark_purple,
                             textStyle: const TextStyle(
                                 color: Pallete.dark_purple,
                                 fontSize: 15,
@@ -145,7 +145,7 @@ class _SignUpState extends State<SignUp> {
                             });
                           },
                         )),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     RichText(
                       text: TextSpan(
                         text: "Already have an account?  ",
@@ -179,6 +179,7 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Widget BuildTextField(
       IconData icon, String hintText, bool isPassword, bool isEmail) {
     return Padding(
@@ -202,7 +203,7 @@ class _SignUpState extends State<SignUp> {
                   borderRadius: BorderRadius.all(Radius.circular(35.0))),
               contentPadding: const EdgeInsets.all(10),
               hintText: hintText,
-              hintStyle: TextStyle(fontSize: 14, color: Pallete.text_color2))),
+              hintStyle: const TextStyle(fontSize: 14, color: Pallete.text_color2))),
     );
   }
 }
