@@ -15,18 +15,18 @@ class Maps extends StatefulWidget {
 }
 
 class _MapsState extends State<Maps> {
-  Completer<GoogleMapController> _controller = Completer();
-  List<Place> _nearPlaces = <Place>[];
+  final Completer<GoogleMapController> _controller = Completer();
+  final List<Place> _nearPlaces = <Place>[];
   var places;
 // on below line we have specified camera position
-  static final CameraPosition _kGoogle = const CameraPosition(
+  static const CameraPosition _kGoogle = CameraPosition(
     target: LatLng(20.42796133580664, 80.885749655962),
     zoom: 14.4746,
   );
 
 // on below line we have created the list of markers
-  List<Marker> _markers = <Marker>[
-    Marker(
+  final List<Marker> _markers = <Marker>[
+    const Marker(
         markerId: MarkerId('1'),
         position: LatLng(1.3733, 32.2903),
         infoWindow: InfoWindow(
@@ -40,7 +40,6 @@ class _MapsState extends State<Maps> {
         .then((value) {})
         .onError((error, stackTrace) async {
       await Geolocator.requestPermission();
-      print("ERROR" + error.toString());
     });
     return await Geolocator.getCurrentPosition();
   }
@@ -56,7 +55,7 @@ class _MapsState extends State<Maps> {
     Map data = json.decode(response.body);
 
     setState(() {
-      this.places = data['results'];
+      places = data['results'];
       for (var place in places) {
         String name = "UNKNOWN";
         String isOpen = "UNKNOWN";
@@ -101,9 +100,9 @@ class _MapsState extends State<Maps> {
 
       // marker added for current users location
       _markers.add(Marker(
-        markerId: MarkerId("2"),
+        markerId: const MarkerId("2"),
         position: LatLng(value.latitude, value.longitude),
-        infoWindow: InfoWindow(
+        infoWindow: const InfoWindow(
           title: 'My Current Location',
         ),
       ));
@@ -201,13 +200,13 @@ class _MapsState extends State<Maps> {
   }
 
   Widget BuildPlace(Place place) => Container(
-      margin: EdgeInsets.only(top: 40),
-      padding: EdgeInsets.only(left: 20),
+      margin: const EdgeInsets.only(top: 40),
+      padding: const EdgeInsets.only(left: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(place.name,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
           Row(
             children: [
               Text(place.rating.toString()),
@@ -219,8 +218,8 @@ class _MapsState extends State<Maps> {
                 ignoreGestures: true,
                 itemSize: 20,
                 itemCount: 5,
-                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                itemBuilder: (context, _) => Icon(
+                itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                itemBuilder: (context, _) => const Icon(
                   Icons.star,
                   color: Colors.amber,
                   size: 10,
@@ -229,7 +228,7 @@ class _MapsState extends State<Maps> {
               ),
             ],
           ),
-          Text(" Is Open : " + place.isOpen, style: TextStyle(fontSize: 15))
+          Text(" Is Open : " + place.isOpen, style: const TextStyle(fontSize: 15))
         ],
       ));
 }
