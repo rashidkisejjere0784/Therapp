@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:therapp/Pallete.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
+  @override
   _SignInState createState() => _SignInState();
 }
 
@@ -28,7 +31,7 @@ class _SignInState extends State<SignIn> {
             left: 0,
             child: Container(
               height: 500,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Pallete.light_purple,
               ),
               child: Column(
@@ -90,7 +93,7 @@ class _SignInState extends State<SignIn> {
                               "Enter your account password", true, false),
                           Text(
                             err,
-                            style: TextStyle(color: Colors.red),
+                            style: const TextStyle(color: Colors.red),
                           )
                         ],
                       )),
@@ -98,7 +101,7 @@ class _SignInState extends State<SignIn> {
                     width: MediaQuery.of(context).size.width - 100,
                     child: ElevatedButton(
                       child: isLoading
-                          ? CircularProgressIndicator(
+                          ? const CircularProgressIndicator(
                               color: Colors.white,
                             )
                           : Text(
@@ -106,7 +109,7 @@ class _SignInState extends State<SignIn> {
                               style: GoogleFonts.montserrat(),
                             ),
                       style: ElevatedButton.styleFrom(
-                        primary: Pallete.dark_purple,
+                        backgroundColor: Pallete.dark_purple,
                         textStyle: const TextStyle(
                             color: Pallete.dark_purple,
                             fontSize: 15,
@@ -141,7 +144,7 @@ class _SignInState extends State<SignIn> {
                       },
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   RichText(
                     text: TextSpan(
                         text: "Don't have an account? ",
@@ -199,7 +202,7 @@ class _SignInState extends State<SignIn> {
                   borderRadius: BorderRadius.all(Radius.circular(35.0))),
               contentPadding: const EdgeInsets.all(10),
               hintText: hintText,
-              hintStyle: TextStyle(fontSize: 14, color: Pallete.text_color2))),
+              hintStyle: const TextStyle(fontSize: 14, color: Pallete.text_color2))),
     );
   }
 }
