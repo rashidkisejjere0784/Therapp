@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:therapp/Pallete.dart';
 import 'Calender.dart';
-import 'package:popup_card/popup_card.dart';
-import 'PopItemBody.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:avatar_glow/avatar_glow.dart';
 
 class Event extends StatefulWidget {
   String Event_name = "";
@@ -29,17 +26,17 @@ class _EventState extends State<Event> {
     super.initState();
     final user = FirebaseAuth.instance.currentUser;
     final userEmail = user?.email.toString();
-    final collection_name = "pinned " + (userEmail.toString() ?? " ");
+    final collectionName = "pinned " + (userEmail.toString());
 
     FirebaseFirestore.instance
-        .collection(collection_name)
+        .collection(collectionName)
         .get()
         .then((querySnapshot) {
       List<String> documentIds = [];
 
-      querySnapshot.docs.forEach((document) {
+      for (var document in querySnapshot.docs) {
         documentIds.add(document.id);
-      });
+      }
 
       setState(() {
         pinnedEvents = documentIds;
@@ -96,10 +93,10 @@ class _EventState extends State<Event> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Calender(),
+                builder: (context) => const Calender(),
               ));
         },
-        child: Icon(Icons.calendar_month),
+        child: const Icon(Icons.calendar_month),
       ),
       //     ),
       //   ],
@@ -118,8 +115,8 @@ class _EventState extends State<Event> {
           ),
         ),
         title: Text(
-          this.widget.Event_name,
-          style: TextStyle(
+          widget.Event_name,
+          style: const TextStyle(
             color: Pallete.dark_purple,
           ),
         ),
@@ -131,7 +128,7 @@ class _EventState extends State<Event> {
           children: [
             Container(
               color: Colors.white,
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: Row(children: [
                 GestureDetector(
                   onTap: () {
@@ -149,7 +146,7 @@ class _EventState extends State<Event> {
                         fontSize: 15),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 GestureDetector(
                   onTap: () {
                     setState(() {
@@ -164,7 +161,7 @@ class _EventState extends State<Event> {
                           fontWeight: FontWeight.bold,
                           fontSize: 15)),
                 ),
-                Spacer(),
+                const Spacer(),
                 GestureDetector(
                   onTap: () {
                     setState(() {
@@ -200,6 +197,7 @@ class _EventState extends State<Event> {
     if (sectionNo == 1) {
       showLink = true;
     }
+    // ignore: avoid_unnecessary_containers
     return Container(
       child: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
@@ -207,31 +205,32 @@ class _EventState extends State<Event> {
               .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+            if (snapshot.hasError) return Text('Error: ${snapshot.error}');
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               default:
+                // ignore: unnecessary_new
                 return new ListView(
                   shrinkWrap: true,
                   children:
                       snapshot.data!.docs.map((DocumentSnapshot document) {
                     //check whether event is on going or not
-                    if (document['Category'] == this.widget.Event_name) {
+                    if (document['Category'] == widget.Event_name) {
                       Timestamp currentTimestamp = Timestamp.now();
 
-                      Timestamp event_start = document['start time'];
+                      Timestamp eventStart = document['start time'];
 
-                      Timestamp event_end = document['end time'];
+                      Timestamp eventEnd = document['end time'];
 
                       bool isOnGoing =
-                          (currentTimestamp.compareTo(event_start) >= 0) &&
-                              (currentTimestamp.compareTo(event_end) <= 0);
+                          (currentTimestamp.compareTo(eventStart) >= 0) &&
+                              (currentTimestamp.compareTo(eventEnd) <= 0);
                       bool isUpcoming =
-                          (currentTimestamp.compareTo(event_start) < 0);
+                          (currentTimestamp.compareTo(eventStart) < 0);
 
                       bool isVisited =
-                          (currentTimestamp.compareTo(event_end) > 0);
+                          (currentTimestamp.compareTo(eventEnd) > 0);
 
                       if (isOnGoing && sectionNo == 1) {
                         //Event is
@@ -255,7 +254,7 @@ class _EventState extends State<Event> {
                               showLink,
                               document.id,
                               document['Details']);
-                        } catch (Exception) {
+                        } on Exception {
                           return BuildEvent(
                               document['name'],
                               document['start time'],
@@ -277,7 +276,7 @@ class _EventState extends State<Event> {
                               showLink,
                               document.id,
                               document['Details']);
-                        } catch (Exception) {
+                        } on Exception {
                           return BuildEvent(
                               document['name'],
                               document['start time'],
@@ -291,7 +290,7 @@ class _EventState extends State<Event> {
                       }
                     }
                     return AnimatedContainer(
-                      duration: Duration(seconds: 0),
+                      duration: const Duration(seconds: 0),
                     );
                   }).toList(),
                 );
@@ -300,6 +299,7 @@ class _EventState extends State<Event> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   AnimatedContainer BuildEvent(
       String name,
       Timestamp startTime,
@@ -309,14 +309,13 @@ class _EventState extends State<Event> {
       bool isOnGoing,
       String id,
       String details) {
-    bool viewDetails = true;
-    DateTime Event_Start_Date = startTime.toDate();
-    DateTime Event_End_Date = endTime.toDate();
+    DateTime eventStartDate = startTime.toDate();
+    DateTime eventEndDate = endTime.toDate();
 
     String eventDateStr =
-        DateFormat('yyyy-MM-dd : h:m').format(Event_Start_Date) +
+        DateFormat('yyyy-MM-dd : h:m').format(eventStartDate) +
             " to " +
-            DateFormat('yyyy-MM-dd : h:m').format(Event_End_Date);
+            DateFormat('yyyy-MM-dd : h:m').format(eventEndDate);
 
     return AnimatedContainer(
       duration: const Duration(seconds: 10),
@@ -344,14 +343,14 @@ class _EventState extends State<Event> {
               margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: Text(
                 name,
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: const TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
             Container(
               margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
               child: Text(
                 eventDateStr,
-                style: TextStyle(color: Colors.white, fontSize: 15),
+                style: const TextStyle(color: Colors.white, fontSize: 15),
               ),
             ),
             Row(children: [
@@ -366,17 +365,18 @@ class _EventState extends State<Event> {
                     setState(() {
                       if (activeDocument == id) {
                         activeDocument = "";
-                      } else
+                      } else {
                         activeDocument = id;
+                      }
                     });
                   },
                   child: Text(
                     (activeDocument != id) ? "Details" : "Close",
-                    style: TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 15),
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               if (isUpcoming)
                 GestureDetector(
                   onTap: () {
@@ -393,7 +393,7 @@ class _EventState extends State<Event> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Calender(),
+                                    builder: (context) => const Calender(),
                                   ),
                                 );
                               },
@@ -413,7 +413,7 @@ class _EventState extends State<Event> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Calender(),
+                                    builder: (context) => const Calender(),
                                   ),
                                 );
                               },
@@ -441,14 +441,14 @@ class _EventState extends State<Event> {
                       child: GestureDetector(
                           onTap: () async {
                             Uri url = Uri.parse(meetLink);
-                            if (await canLaunchUrl(url))
+                            if (await canLaunchUrl(url)) {
                               await launchUrl(url,
                                   mode: LaunchMode.externalApplication);
-                            else
-                              // can't launch url, there is some error
+                            } else {
                               throw "Could not launch $url";
+                            }
                           },
-                          child: Text("Join", style: TextStyle(fontSize: 15))),
+                          child: const Text("Join", style: TextStyle(fontSize: 15))),
                     ),
                   ),
                 ),
@@ -475,27 +475,26 @@ class _EventState extends State<Event> {
 
   void AddPinnedEvent(String name, String id, Timestamp strDate) async {
     final userEmail = user?.email.toString();
-    final collection_name = "pinned " + (userEmail.toString() ?? " ");
+    final collectionName = "pinned " + (userEmail.toString());
     final CollectionReference collection =
-        FirebaseFirestore.instance.collection(collection_name);
+        FirebaseFirestore.instance.collection(collectionName);
     await collection
         .doc(id)
         .set({'date': strDate, 'name': name})
+        // ignore: avoid_print
         .then((_) => print("success"))
         .catchError((error) => print);
   }
 
   void removePinnedEvent(String id) async {
     final userEmail = user?.email.toString();
-    final collection_name = "pinned " + (userEmail.toString() ?? " ");
+    final collectionName = "pinned " + (userEmail.toString());
     FirebaseFirestore.instance
-        .collection(collection_name)
+        .collection(collectionName)
         .doc(id)
         .delete()
         .then((_) {
-      print("Document successfully deleted!");
     }).catchError((error) {
-      print("Error deleting document: $error");
     });
   }
 }
