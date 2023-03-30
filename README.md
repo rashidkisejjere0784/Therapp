@@ -1,24 +1,10 @@
-# click_counter
+Therapp is a mobile application designed for promoting mental health awareness and assitance.
+How To Run the code 
 
-A new Flutter project created with https://flutlab.io
+run git clone https://github.com/rashidkisejjere0784/Therapp.git
 
-## Getting Started
+open the Therapp folder with any IDE (VS code recommended)
 
-This project is a starting point for a Flutter application.
+make sure that flutter is already configured onto your machine
 
-A few resources to get you started if this is your first Flutter project:
-
-- https://flutter.dev/docs/get-started/codelab
-- https://flutter.dev/docs/cookbook
-
-For help getting started with Flutter, view our
-https://flutter.dev/docs, which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-## Getting Started: FlutLab - Flutter Online IDE
-
-- How to use FlutLab? Please, view our https://flutlab.io/docs
-- Discover a marketplace of ready-to-use Flutter projects https://flutlab.io/widgetbay
-- Join the discussion and conversation on https://flutlab.io/residents
-
-If you have some questions regarding FlutLab, you can ask on https://flutlab.io/faq
+run  the code using flutter run
