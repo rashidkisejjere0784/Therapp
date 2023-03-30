@@ -1,14 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'Pallete.dart';
-import 'dart:async';
-import 'package:flutter/material.dart';
 import 'Maps.dart';
 import 'Event.dart';
 import 'Calender.dart';
 
 class Events extends StatefulWidget {
   const Events({Key? key}) : super(key: key);
+  @override
   _WidgetState createState() => _WidgetState();
 }
 
@@ -66,41 +64,42 @@ class _WidgetState extends State<Events> {
           ],
         ),
       ),
-      body: _isEvents ? BuildEvents() : Maps(),
+      body: _isEvents ? BuildEvents() : const Maps(),
     );
   }
 
+  // ignore: non_constant_identifier_names
   Scaffold BuildEvents() {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-                margin: EdgeInsets.all(10),
-                child: Text(
+                margin: const EdgeInsets.all(10),
+                child: const Text(
                     "The Events are in the form of virtual support groups. Did you know that participation makes you know that you are not alone !!",
                     style:
                         TextStyle(color: Pallete.light_purple, fontSize: 20))),
             Row(
               children: [
-                BuildEvent("Relationships", Icons.favorite, Color(0xFFE2DDFF)),
-                BuildEvent("Grief", Icons.beach_access, Color(0xFFCBC2FF)),
+                BuildEvent("Relationships", Icons.favorite, const Color(0xFFE2DDFF)),
+                BuildEvent("Grief", Icons.beach_access, const Color(0xFFCBC2FF)),
               ],
             ),
             Row(
               children: [
-                BuildEvent("Family", Icons.group, Color(0xFFD7D2F2)),
-                BuildEvent("Addiction", Icons.medication, Color(0xFFC4BCF0)),
+                BuildEvent("Family", Icons.group, const Color(0xFFD7D2F2)),
+                BuildEvent("Addiction", Icons.medication, const Color(0xFFC4BCF0)),
               ],
             ),
             Row(
               children: [
-                BuildEvent("Work", Icons.work, Color(0XFFBFBBD8)),
-                BuildEvent("Health", Icons.healing, Color(0xFFA09AC6)),
+                BuildEvent("Work", Icons.work, const Color(0XFFBFBBD8)),
+                BuildEvent("Health", Icons.healing, const Color(0xFFA09AC6)),
               ],
             ),
             Row(children: [
-              BuildEvent("Studies", Icons.book, Color(0xFF908DA1)),
+              BuildEvent("Studies", Icons.book, const Color(0xFF908DA1)),
             ])
           ],
         ),
@@ -110,7 +109,7 @@ class _WidgetState extends State<Events> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Calender(),
+                builder: (context) => const Calender(),
               ));
         },
         backgroundColor: Pallete.dark_purple,
@@ -119,6 +118,7 @@ class _WidgetState extends State<Events> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   GestureDetector BuildEvent(String name, IconData icon, Color color) {
     return GestureDetector(
       onTap: () {
